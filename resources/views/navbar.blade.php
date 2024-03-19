@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
      <style>
     *{
     margin: 0;
@@ -14,12 +14,8 @@
     --gradient-color: #FBFBFB;
     }
     body{
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    height: 100vh;
     background-image: linear-gradient(-45deg, #e3eefe 0%, #efddfb 100%);
     }
 
@@ -27,9 +23,10 @@
     position: fixed;
     width: 240px;
     left: -240px;
-    height: 100%;
+    height: 110%;
     background-color: #fff;
     transition: all .5s ease;
+    top: -10px;
     }
     .sidebar header{
     font-size: 28px;
@@ -172,21 +169,18 @@
             <i class="fa fa-user" aria-hidden="true"></i>
              <span>Profile</span>
            </a>
-           <form id="logout-form" method="POST" style="display: none;">
-           @csrf
-           </form>
            <a href="/" id="logout-link" onclick="confirmLogout()">
             <i class="fa fa-power-off" aria-hidden="true"></i>
-            <span>Log Out</span>
+            <span>LogOut</span>
           </a>
          </div>
          <script>
-            // function confirmLogout() {
-            // if (confirm("Are you sure you want to logout?")) {
-            //     document.getElementById("logout-form").submit();
-            // }
-            // return false;
-            // }
+            function confirmLogout() {
+            if (confirm("Are you sure you want to logout?")) {
+                document.getElementById("logout-form").submit();
+            }
+            return false;
+            }
           </script>
      </body>
 </html>

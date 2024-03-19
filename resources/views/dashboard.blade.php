@@ -1,4 +1,5 @@
 @include('navbar')
+@include('layout')
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -7,7 +8,6 @@
 
         <title>Dashboard</title>
 
-        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
@@ -25,12 +25,12 @@
             .heading {
                 position: absolute;
                 top: 0;
-                z-index: 1;
                 padding: 20px;
                 box-sizing: border-box;
                 width: 100%;
                 max-width: 800px;
                 text-align: center;
+                justify-content: center;
             }
 
             .box-container {
@@ -96,8 +96,8 @@
     <body>
         <div class="container">
         <div class="heading">
-            <h2 id="greeting-date" style="margin-right: 280px; font-size: 25px"></h2>
-            <h2 id="greeting" id="name" style="font-size: 50px">Good morning, {{ session('user')->name }}!</h2>
+            <h2 id="greeting-date" style="font-size: 25px"></h2>
+            <h2 id="greeting" style="font-size: 50px"></h2>
             </div>
 
             <div class="box-container">
@@ -154,7 +154,7 @@
         <script type="text/javascript">
           const greetingDateElement = document.getElementById("greeting-date");
           const greetingElement = document.getElementById("greeting");
-          const nameElement = document.getElementById("name");
+
           const currentTime = new Date();
           const hours = currentTime.getHours();
           const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -165,13 +165,13 @@
 
           if (hours < 12) {
             greetingDateElement.textContent = `${day}, ${month} ${date}`;
-            greetingElement.textContent = `Good morning, ${nameElement.textContent}!`;
+            greetingElement.textContent = `Good morning, {{ session('user')->name }}!`;
           } else if (hours < 18) {
             greetingDateElement.textContent = `${day}, ${month} ${date}`;
-            greetingElement.textContent = `Good afternoon, ${nameElement.textContent}!`;
+            greetingElement.textContent = `Good afternoon, {{ session('user')->name }}!`;
           } else {
             greetingDateElement.textContent = `${day}, ${month} ${date}`;
-            greetingElement.textContent = `Good evening, ${nameElement.textContent}!`;
+            greetingElement.textContent = `Good evening, {{ session('user')->name }}!`;
           }
         </script>
     </body>

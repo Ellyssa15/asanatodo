@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -21,17 +23,31 @@ class UserController extends Controller
         }
     }
 
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
+
     function register(Request $req)
     {
         $user = new User;
         $user->name = $req->name;
         $user->email = $req->email;
-        $user->password = Hash::make($req->password);
+        $password = $req->password;
+        $cpassword = $req->cpassword;
+
+        if ($password != $cpassword) {
+            return redirect()->back()->withErrors(['password' => 'Passwords do not match. Please try again.']);
+        }
+
+        $user->password = Hash::make($password);
         $user->save();
         $req->session()->put('user', $user);
-        return redirect('dashboard')->with('user', $user);
+        return redirect('/');
     }
-
     function dashboard(Request $req)
     {
         // Retrieve the user data from the session
@@ -41,12 +57,9 @@ class UserController extends Controller
 
         $user->name = ucwords($user->name);
 
-        // Check if the user data exists in the session
         if ($user) {
-            // Return the dashboard view with the user data
             return view('dashboard', ['user' => $user]);
         } else {
-            // Redirect to the login page if the user data is not available in the session
             return redirect('/');
         }
     }
@@ -61,8 +74,13 @@ class UserController extends Controller
             return view('message');
         }
 
-    function profile()
+    function profile(Request $req)
         {
-            return view('auth.profile');
+            $user = $req->session()->get('user');
+
+            $host = $req->getHttpHost();
+
+                return view('profile', ['user' => $user]);
         }
+
     }

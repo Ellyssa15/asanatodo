@@ -1,4 +1,4 @@
-@include('auth.header')
+@include('header')
 <html>
     <head>
         <title>Register Page</title>
@@ -50,7 +50,7 @@
             border-radius: 20px;
           }
           .content input[type="submit"]:hover {
-            background-color: #a03c91;
+            background-color: #b53da1;
           }
           .input-container {
             position: relative;
@@ -83,25 +83,48 @@
           <img src="storage/user.png" alt="user">
       <input type="text" name="name" placeholder="Full Name">
     </div>
+
     <div class="input-container">
           <img src="storage/mail.png" alt="mail">
       <input type="text" name="email" placeholder="Email Address">
     </div>
+
     <div class="input-container">
-          <img src="storage/password.png" alt="password">
-      <input type="password" name="password" placeholder="Password">
-</div>
-<div class="input-container">
-          <img src="storage/confirm.png" alt="confirm">
-      <input type="password" name="cpassword" placeholder="Confirm password">
-</div>
-<form method="post" action="{{ route('register') }}">
-    @csrf
-      <input type="submit" name="add" value="Get Started">
-</form>
-      <br><br>
-      Already have an account? <a href="login.php" style="text-decoration: none; color: #e14eca; font-weight: bold;"> Login here</a>
-    </form>
-  </div>
+        <img src="storage/password.png" alt="password">
+        <input type="password" id="password" name="password" placeholder="Password">
+      </div>
+
+      <div class="input-container">
+        <img src="storage/confirm.png" alt="confirm">
+        <input type="password" id="cpassword" name="cpassword" placeholder="Confirm password">
+        <p id="cpassword-error" class="error"></p>
+      </div>
+
+      <form method="post" action="{{ route('register') }}" onsubmit="return confirmPassword()">
+        @csrf
+        <input type="submit" value="Get Started">
+      </form>
+        <br>
+        <br>
+        Already have an account? <a href="login.php" style="text-decoration: none; color: #e14eca; font-weight: bold;"> Login here</a>
+        </form>
+    </div>
     </body>
+    <script>
+        function confirmPassword() {
+          var password = document.getElementById("password").value;
+          var cpassword = document.getElementById("cpassword").value;
+          var cpasswordError = document.getElementById("cpassword-error");
+
+          if (password !== cpassword) {
+            cpasswordError.textContent = "Passwords do not match. Please try again.";
+            cpasswordError.style.display = "block";
+            return false;
+          } else {
+            cpasswordError.style.display = "none";
+          }
+
+          return true;
+        }
+        </script>
 </html>

@@ -1,4 +1,4 @@
-@include('auth.header')
+@include('header')
 <html>
     <head>
         <title>Login Page</title>
@@ -8,7 +8,7 @@
             background-repeat: no-repeat;
             background-size:cover;
             background-position:center;
-            background-color: #151522;
+            background-color: #010101;
             color: black;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
           }
@@ -40,18 +40,17 @@
           }
           .content input[type="submit"] {
             background-color: white;
-            color: #0C3D6C;
             cursor: pointer;
             height: 40px;
             width: 300px;
             background: #e14eca;
             color: white;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             border-radius: 20px;
           }
           .content input[type="submit"]:hover {
-            background-color: #a03c91;
+            background-color: #b53da1;
           }
 
           .forgot-password {
@@ -63,7 +62,7 @@
             text-decoration: none;
           }
           .forgot-password a:hover {
-            color: #4c1649;
+            color: #b53da1;
           }
           .input-container {
             position: relative;
@@ -117,7 +116,7 @@
         </form>
                <br><br>
                Doesn't has a account yet?
-               <a href="register" style="text-decoration: none; color: #e14eca; font-weight: bold;"> Register now</a>
+               <a href="register" style="text-decoration: none; color: #b53da1; font-weight: bold;"> Register now</a>
 
               </form>
     </div>
