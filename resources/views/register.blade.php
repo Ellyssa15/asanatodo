@@ -1,130 +1,82 @@
-@include('header')
 <html>
-    <head>
-        <title>Register Page</title>
 
-        <style>
-          body {
-            background-repeat: no-repeat;
-            background-size:cover;
-            background-position:center;
-            background-color: #151522;
-            color: black;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-          }
-          h3 {
-              font-size: 30px;
-              color: black;
-              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-          }
-          h4 {
-              color: #7575a3;
-          }
-          .content {
-            background: #fff;
-            padding: 20px 50px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            width: 300px;
-            margin: 120px auto;
-            border-radius: 10px;
-          }
-          .content input[type="text"], .content input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 2px solid rgba(29, 37, 59, .2);
-            border-radius: 4px;
-            box-sizing: border-box;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: black;
-          }
-          .content input[type="submit"] {
-            background-color: white;
-            cursor: pointer;
-            height: 40px;
-            width: 300px;
-            background: #e14eca;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 20px;
-          }
-          .content input[type="submit"]:hover {
-            background-color: #b53da1;
-          }
-          .input-container {
-            position: relative;
-            width: 100%;
-            margin-bottom: 10px;
-          }
-          .input-container input[type="text"] {
-            padding-left: 30px;
-          }
-          .input-container input[type="password"] {
-            padding-left: 30px;
-          }
-          .input-container img {
-            position: absolute;
-            left: 5px;
-            top: 40%;
-            transform: translateY(-50%);
-            width: 24px;
-            height: 24px;
-          }
-        </style>
-    </head>
-    <body>
+<head>
+    <title>Register Page</title>
+    <link rel="stylesheet" href="css/register.css">
 
+</head>
+
+<body style="background-color: #151522;">
+    <div>
+        <img src="img/logo2.png" alt="logo"
+            style="position: absolute; top: 50%; left: 35%; transform: translate(-50%, -50%); width: 40%;">
+        <div class = "content"
+            style="background: #fff; padding: 10px 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); width: 300px; border-radius: 10px; margin-left:60%;">
+            <h3
+                style="font-size: 30px; color: black; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; margin-bottom:0;  margin-top:0;">
+                Register</h3>
+            <h4 style="color: #7575a3; margin-top: 10px;">Create a new account</h4>
+            <p id="cpassword-error" class="error" style="color: red;"></p>
+            <form method="post" onsubmit="return confirmPassword()">
+                <div class="input-container" style="position: relative; width: 100%; margin-bottom: 10px;">
+                    <img src="storage/user.png" alt="user"
+                        style="position: absolute; left: 5px; top: 40%; transform: translateY(-50%); width: 24px; height: 24px;">
+                    <input type="text"
+                        style="width: 100%; padding: 10px; padding-left: 35px; margin-bottom: 10px; border: 2px solid rgba(29, 37, 59, .2); border-radius: 4px; box-sizing: border-box;background-color: rgba(255, 255, 255, 0.2); color: black;"
+                        name="name" placeholder="Username">
+                </div>
+
+                <div class="input-container" style="position: relative; width: 100%; margin-bottom: 10px;">
+                    <img src="storage/mail.png" alt="mail"
+                        style="position: absolute; left: 5px; top: 40%; transform: translateY(-50%); width: 24px; height: 24px;">
+                    <input type="text"
+                        style="width: 100%; padding: 10px; padding-left: 35px; margin-bottom: 10px; border: 2px solid rgba(29, 37, 59, .2); border-radius: 4px; box-sizing: border-box;background-color: rgba(255, 255, 255, 0.2); color: black;"
+                        name="email" placeholder="Email Address">
+                </div>
+
+                <div class="input-container" style="position: relative; width: 100%; margin-bottom: 10px;">
+                    <img src="storage/password.png" alt="password"
+                        style="position: absolute; left: 5px; top: 40%; transform: translateY(-50%); width: 24px; height: 24px;">
+                    <input type="password"
+                        style="width: 100%; padding: 10px; padding-left: 35px; margin-bottom: 10px; border: 2px solid rgba(29, 37, 59, .2); border-radius: 4px; box-sizing: border-box;background-color: rgba(255, 255, 255, 0.2); color: black;"
+                        id="password" name="password" placeholder="Password">
+                </div>
+
+                <div class="input-container" style="position: relative; width: 100%; margin-bottom: 10px;">
+                    <img src="storage/confirm.png" alt="confirm"
+                        style="position: absolute; left: 5px; top: 40%; transform: translateY(-50%); width: 24px; height: 24px;">
+                    <input type="password"
+                        style="width: 100%; padding: 10px; padding-left: 35px; margin-bottom: 10px; border: 2px solid rgba(29, 37, 59, .2); border-radius: 4px; box-sizing: border-box;background-color: rgba(255, 255, 255, 0.2); color: black;"
+                        id="cpassword" name="cpassword" placeholder="Confirm password">
+
+                </div>
+
+                <input type="submit" value="Get Started">
+                @csrf
+            </form>
+            Already have an account? <a href="/"
+                style="text-decoration: none; color: #4e499e; font-weight: bold;"> Login here</a>
+
+            </form>
+        </div>
     </div>
-    <div class="content">
-    <h3>Register</h3>
-    <form method="post" onsubmit="return alertName()">
-    <div class="input-container">
-          <img src="storage/user.png" alt="user">
-      <input type="text" name="name" placeholder="Full Name">
-    </div>
+</body>
+<script>
+    function confirmPassword() {
+        var password = document.getElementById("password").value;
+        var cpassword = document.getElementById("cpassword").value;
+        var cpasswordError = document.getElementById("cpassword-error");
 
-    <div class="input-container">
-          <img src="storage/mail.png" alt="mail">
-      <input type="text" name="email" placeholder="Email Address">
-    </div>
-
-    <div class="input-container">
-        <img src="storage/password.png" alt="password">
-        <input type="password" id="password" name="password" placeholder="Password">
-      </div>
-
-      <div class="input-container">
-        <img src="storage/confirm.png" alt="confirm">
-        <input type="password" id="cpassword" name="cpassword" placeholder="Confirm password">
-        <p id="cpassword-error" class="error"></p>
-      </div>
-
-      <form method="post" action="{{ route('register') }}" onsubmit="return confirmPassword()">
-        @csrf
-        <input type="submit" value="Get Started">
-      </form>
-        <br>
-        <br>
-        Already have an account? <a href="login.php" style="text-decoration: none; color: #e14eca; font-weight: bold;"> Login here</a>
-        </form>
-    </div>
-    </body>
-    <script>
-        function confirmPassword() {
-          var password = document.getElementById("password").value;
-          var cpassword = document.getElementById("cpassword").value;
-          var cpasswordError = document.getElementById("cpassword-error");
-
-          if (password !== cpassword) {
-            cpasswordError.textContent = "Passwords do not match. Please try again.";
+        if (password !== cpassword) {
+            cpasswordError.textContent = "*Passwords do not match. Please try again.";
             cpasswordError.style.display = "block";
             return false;
-          } else {
+        } else {
             cpasswordError.style.display = "none";
-          }
-
-          return true;
         }
-        </script>
+
+        return true;
+    }
+</script>
+
 </html>

@@ -1,0 +1,83 @@
+.trash {
+	background:#ed1f1c;
+	width: 13px;
+	height: 18px;
+	display: flex;
+	margin-left: 85.5%;
+    top: 2px;
+	position: relative;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.trash span {
+	position: absolute;
+	height:3px;
+    width: 19px;
+	background: #ed1f1c;
+	top: -5px;
+	left: -3px;
+	right: -6px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	transform: rotate(0deg);
+	transition: transform 250ms;
+	transform-origin: 19% 100%;
+}
+.trash span:after {
+	content: '';
+	position: absolute;
+	width: 4px;
+	height: 2.5px;
+	background: #ed1f1c;
+	top: -4px;
+
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	transform: rotate(0deg);
+	transition: transform 250ms;
+	transform-origin: 19% 100%;
+	left: 7px;
+}
+
+.trash i {
+	position:relative;
+	width: 0.8px;
+	height:11px;
+	background:#fff;
+	display:block;
+	margin:14px auto;
+    left: 0.1px;
+    top: -10px;
+	border-radius: 5px;
+}
+.trash i:after {
+	content: '';
+	width: 0.8px;
+	height: 11px;
+	background: #fff;
+	position: absolute;
+	left: -4px;
+	border-radius: 5px;
+}
+.trash i:before {
+	content: '';
+	width: 0.8px;
+	height: 11px;
+	background: #fff;
+	position: absolute;
+	right: -3.5px;
+	border-radius: 5px;
+}
+
+.trash:hover span {
+	transform: rotate(-45deg);
+	transition: transform 250ms;
+    cursor: pointer;
+}
+
+.trash:hover {
+    cursor: pointer;
+}
+
+

@@ -3,23 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Tasks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-
 class UserController extends Controller
 {
-    function login(Request $req)
-    {
-        $user = User::where(['email' => $req->email])->first();
-        if (!$user || !Hash::check($req->password, $user->password)) {
-            return "Username or Password not matched";
-        } else {
-            $req->session()->put('user', $user);
 
-            $data = ['user' => $user];
-            return view('dashboard', $data);
+    public function list()
+    {
+        $users = User::where('role', 'user')->get();
+        $count = 1;
+        $totalTasks = Tasks::count();
+        $incompleteTasks = Tasks::where('status', 'To-Do')->count();
+        $completedTasks = Tasks::where('status', 'Completed')->count();
+
+        return view('dashboard', ['users' => $users, 'count' => $count, 'totalTasks' => $totalTasks, 'incompleteTasks' => $incompleteTasks, 'completedTasks' => $completedTasks]);
+    }
+
+    public function getUsers()
+    {
+        $users = User::all();
+        return response()->json($users);
+    }
+
+    function login(Request $request)
+    {
+        $user = User::where(['email' => $request->email])->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return back()->withErrors(['email' => '*Email or Password not matched']);
+        } else {
+            $request->session()->put('user', $user);
+            session()->flash('success', 'You have successfully logged in!');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -31,56 +48,15 @@ class UserController extends Controller
         return redirect('/');
     }
 
-    function register(Request $req)
-    {
-        $user = new User;
-        $user->name = $req->name;
-        $user->email = $req->email;
-        $password = $req->password;
-        $cpassword = $req->cpassword;
-
-        if ($password != $cpassword) {
-            return redirect()->back()->withErrors(['password' => 'Passwords do not match. Please try again.']);
-        }
-
-        $user->password = Hash::make($password);
-        $user->save();
-        $req->session()->put('user', $user);
-        return redirect('/');
-    }
     function dashboard(Request $req)
     {
-        // Retrieve the user data from the session
         $user = $req->session()->get('user');
 
         $host = $req->getHttpHost();
 
         $user->name = ucwords($user->name);
 
-        if ($user) {
-            return view('dashboard', ['user' => $user]);
-        } else {
-            return redirect('/');
-        }
+        return view('dashboard', ['user' => $user]);
     }
 
-    function project()
-        {
-            return view('project');
-        }
-
-    function message()
-        {
-            return view('message');
-        }
-
-    function profile(Request $req)
-        {
-            $user = $req->session()->get('user');
-
-            $host = $req->getHttpHost();
-
-                return view('profile', ['user' => $user]);
-        }
-
-    }
+}
